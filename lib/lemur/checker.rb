@@ -7,8 +7,10 @@ module Lemur
     module_function
 
     def check!(key_sets)
-      Dotenv&.require_keys(key_sets&.each_with_object([]) { |key_set, obj| obj << key_set.keys if key_set.clause }
-                                   &.flatten)
+      return unless key_sets.any?
+
+      Dotenv.require_keys(key_sets.each_with_object([]) { |key_set, obj| obj << key_set.keys if key_set.clause }
+                                  .flatten)
     end
   end
 end

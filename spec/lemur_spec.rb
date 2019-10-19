@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 RSpec.describe Lemur, type: :module do
   it { expect(described_class::VERSION).not_to be_nil }
 
