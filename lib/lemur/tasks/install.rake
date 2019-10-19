@@ -3,21 +3,23 @@
 require 'fileutils'
 
 SETTINGS = 'config/initializers/lemur.rb'
+BIN = 'bin/lemur'
 
 namespace :lemur do
   desc 'Install the environment checker'
   task :install do
-    create_initializer
+    create_file(SETTINGS, initializer)
+    create_file(BIN, bin)
   end
 end
 
-def create_initializer
-  FileUtils.mkdir_p(File.dirname(SETTINGS))
-  File.open(SETTINGS, 'w') { |file| file << initializer }
+def create_file(path, content)
+  FileUtils.mkdir_p(File.dirname(path))
+  File.open(path, 'w') { |file| file << content }
 end
 
 def initializer
-  <<~SETTINGS
+  <<~CONTENT
     # frozen_string_literal: true
 
     require 'lemur'
@@ -31,5 +33,14 @@ def initializer
     end
 
     Lemur.check!
-  SETTINGS
+  CONTENT
+end
+
+def bin
+  <<~CONTENT
+    #!/usr/bin/env bash
+    set -e
+
+    ruby config/initializers/lemur.rb
+  CONTENT
 end

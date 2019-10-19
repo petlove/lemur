@@ -26,18 +26,40 @@ Set the settings in the file _config/initializers/lemur.rb_:
 ```ruby
 # frozen_string_literal: true
 
+require 'lemur'
+
+DEFAULT_KEYS = %w[RAILS_ENV].freeze
+
 Lemur.configure do |config|
-  config.static.header = Lemur.static.default_header('MyAppName')
-  config.static.token = 'my static token value'
+  config.add_keys(DEFAULT_KEYS, true)
+  # config.add_keys(STAGING_KEYS, ENV['APP_ENV'] == 'staging')
+  # config.add_keys(PRODUCTION_KEYS, ENV['APP_ENV'] == 'production')
 end
+
+Lemur.check!
+
 ```
 
-## Static Authentication
+## Running the checker in a script
 
-Send a header with the name equal to `config.static.header` with the value equal to `config.static.token`.
+You can run the Lemur check in a bash script:
 
-After it, you need to include `Lemur::Strategies::Static` in your controller or inherit the controller `Lemur::Strategies::StaticController`.
+```bash
+bash bin/lemur
+```
 
+## Using the checker in Codefresh pipelines
+
+Append this part in your pipeline.yml:
+
+```yml
+check_envs:
+    stage: build
+    title: Checking required environments
+    image: '${{build_docker_image}}'
+    commands:
+      - /bin/lemur
+```
 
 ## Contributing
 
