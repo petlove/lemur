@@ -19,6 +19,7 @@ end
 def initializer
   <<~SETTINGS
     # frozen_string_literal: true
+
     require 'lemur'
 
     DEFAULT_KEYS = %w[RAILS_ENV]

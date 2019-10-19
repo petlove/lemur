@@ -11,6 +11,8 @@ module Lemur
 
       Dotenv.require_keys(key_sets.each_with_object([]) { |key_set, obj| obj << key_set.keys if key_set.clause }
                                   .flatten)
+    rescue Dotenv::MissingKeys => e
+      raise Lemur::MissingKeys, e.message
     end
   end
 end

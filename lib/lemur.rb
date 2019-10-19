@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'lemur/version'
+require 'lemur/missing_keys'
 require 'lemur/key_set'
 require 'lemur/checker'
 require 'lemur/configuration'

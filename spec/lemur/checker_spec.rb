@@ -13,7 +13,7 @@ RSpec.describe Lemur::Checker, type: :model do
     end
 
     context 'without RAILS_ENV' do
-      it { expect { subject }.to raise_error(Dotenv::MissingKeys) }
+      it { expect { subject }.to raise_error(Lemur::MissingKeys) }
     end
 
     context 'with RAILS_ENV' do
