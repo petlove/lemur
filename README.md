@@ -37,7 +37,7 @@ Lemur.configure do |config|
   # config.add_keys(PRODUCTION_KEYS, ENV['APP_ENV'] == 'production')
 end
 
-Lemur.check!
+Lemur.check! if Rails.env.production?
 
 ```
 
