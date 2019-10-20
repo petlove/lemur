@@ -2,14 +2,11 @@
 
 require 'fileutils'
 
-SETTINGS = 'config/initializers/lemur.rb'
-BIN = 'bin/lemur'
-
 namespace :lemur do
   desc 'Install the environment checker'
   task :install do
-    create_file(SETTINGS, initializer)
-    create_file(BIN, bin)
+    create_file('config/initializers/lemur.rb', initializer)
+    create_file('bin/lemur', bin)
   end
 end
 
@@ -22,6 +19,7 @@ def initializer
   <<~CONTENT
     # frozen_string_literal: true
 
+    require 'bundler/setup'
     require 'lemur'
 
     DEFAULT_KEYS = %w[RAILS_ENV]
