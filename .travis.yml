@@ -1,7 +1,7 @@
 ---
 env:
   global:
-    - CC_TEST_REPORTER_ID=18cd0dfc0d434e79dabf7a4e417ac996fbf5c0ec3570cb17999d1272a20480d0
+    - CC_TEST_REPORTER_ID=2999945c2f66fa6685d68188fb781c47ce5af5e38fe423a63b970d756d6ac18e
 sudo: false
 language: ruby
 cache: bundler

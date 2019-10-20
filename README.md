@@ -26,6 +26,7 @@ Set the settings in the file _config/initializers/lemur.rb_:
 ```ruby
 # frozen_string_literal: true
 
+require 'bundler/setup'
 require 'lemur'
 
 DEFAULT_KEYS = %w[RAILS_ENV].freeze
@@ -50,15 +51,15 @@ bash bin/lemur
 
 ## Using the checker in Codefresh pipelines
 
-Append this part in your pipeline.yml:
+Append this code in your pipeline.yml:
 
 ```yml
 check_envs:
-    stage: build
-    title: Checking required environments
-    image: '${{build_docker_image}}'
-    commands:
-      - /bin/lemur
+  stage: build
+  title: Checking required environments
+  image: '${{build_docker_image}}'
+  commands:
+    - /bin/lemur
 ```
 
 ## Contributing
@@ -83,7 +84,7 @@ Everyone interacting in the Rails::Healthcheck project’s codebases, issue trac
 [contributor_convenant_page]: http://contributor-covenant.org
 [travis_status_image]: https://travis-ci.org/petlove/lemur.svg?branch=master
 [travis_page]: https://travis-ci.org/petlove/lemur
-[code_climate_maintainability_image]: https://api.codeclimate.com/v1/badges/46c218fa0151fca701f3/maintainability
+[code_climate_maintainability_image]: https://api.codeclimate.com/v1/badges/ea1e2ede7c154ce20546/maintainability
 [code_climate_maintainability_page]: https://codeclimate.com/github/petlove/lemur/maintainability
-[code_climate_test_coverage_image]: https://api.codeclimate.com/v1/badges/46c218fa0151fca701f3/test_coverage
+[code_climate_test_coverage_image]: https://api.codeclimate.com/v1/badges/ea1e2ede7c154ce20546/test_coverage
 [code_climate_test_coverage_page]: https://codeclimate.com/github/petlove/lemur/test_coverage

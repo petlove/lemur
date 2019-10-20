@@ -22,7 +22,7 @@ def initializer
     require 'bundler/setup'
     require 'lemur'
 
-    DEFAULT_KEYS = %w[RAILS_ENV]
+    DEFAULT_KEYS = %w[RAILS_ENV].freeze
 
     Lemur.configure do |config|
       config.add_keys(DEFAULT_KEYS, true)
@@ -31,6 +31,7 @@ def initializer
     end
 
     Lemur.check!
+
   CONTENT
 end
 
