@@ -17,7 +17,7 @@ def create_file(path, content)
 end
 
 def permit_file(path)
-  FileUtils.chmod("+x", path)
+  FileUtils.chmod('+x', path)
 end
 
 def initializer

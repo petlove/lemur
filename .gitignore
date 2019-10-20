@@ -4,3 +4,5 @@ TODO
 .rspec_status
 *.gem
 *.DS_Store
+*.env.lemur.prod
+/codefresh/*

@@ -62,6 +62,28 @@ check_envs:
     - /app/bin/lemur
 ```
 
+## Build Codefresh envs using Lemur
+
+You can use Lemur to build your Codefresh Gems
+
+First, create your `.env.lemur` files for each environment that you need with the header `# file:...`. This .env should be in your project root. For this example, the name is `.env.lemur.prod`:
+
+```text
+# file:codefresh/deployments/prod.yml
+
+APP_TYPE=web
+APP_ENV={{APP_ENV}}
+AWS_ACCESS_KEY_ID='{{AWS_ACCESS_KEY_ID}}'
+```
+
+After create this file, you should run the builder task:
+
+```bash
+rails lemur:build_envs
+```
+
+So, the file `codefresh/deployments/prod.yml` was updated with the `.env.lemur.prod` environments.
+
 ## Contributing
 
 1. Fork it
