@@ -3,3 +3,4 @@ TODO
 /coverage/*
 .rspec_status
 *.gem
+*.DS_Store

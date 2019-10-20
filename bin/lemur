@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-ruby config/initializers/lemur.rb

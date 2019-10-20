@@ -59,7 +59,7 @@ check_envs:
   title: Checking required environments
   image: '${{build_docker_image}}'
   commands:
-    - /bin/lemur
+    - /app/bin/lemur
 ```
 
 ## Contributing
