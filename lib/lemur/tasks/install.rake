@@ -35,7 +35,7 @@ def initializer
       # config.add_keys(PRODUCTION_KEYS, ENV['APP_ENV'] == 'production')
     end
 
-    Lemur.check! if Rails.env.production?
+    Lemur.check! if ENV['RAILS_ENV'] == 'production'
 
   CONTENT
 end
