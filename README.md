@@ -73,8 +73,8 @@ First, create your `.env.lemur` files for each environment that you need with th
 
 APP_TYPE=web
 APP_ENV={{APP_ENV}}
-AWS_ACCESS_KEY_ID='{{AWS_ACCESS_KEY_ID}}'
 ```
+OBS: Don't put `''` in your keys, like `'{{APP_ENV}}'`.
 
 After create this file, you should run the builder task:
 
