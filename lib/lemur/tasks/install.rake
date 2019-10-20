@@ -7,12 +7,17 @@ namespace :lemur do
   task :install do
     create_file('config/initializers/lemur.rb', initializer)
     create_file('bin/lemur', bin)
+    permit_file('bin/lemur')
   end
 end
 
 def create_file(path, content)
   FileUtils.mkdir_p(File.dirname(path))
   File.open(path, 'w') { |file| file << content }
+end
+
+def permit_file(path)
+  FileUtils.chmod("+x", path)
 end
 
 def initializer
