@@ -66,7 +66,7 @@ check_envs:
 
 You can use Lemur to build your Codefresh Gems
 
-First, create your `.env.lemur` files for each environment that you need with the header `# file:...`. This .env should be in your project root. For this example, the name is `.env.lemur.prod`:
+First, create your `.env.lemur` files for each environment that you need with the header `# file:...`. This `.env` should be in your project root. For this example, the name is `.env.lemur.prod`:
 
 ```text
 # file:codefresh/deployments/prod.yml
@@ -75,6 +75,7 @@ APP_TYPE=web
 APP_ENV={{APP_ENV}}
 ```
 OBS: Don't put `''` in your keys, like `'{{APP_ENV}}'`.
+OBS 2: You can set many files to update with a single `.env.lemur` file
 
 After create this file, you should run the builder task:
 
