@@ -8,20 +8,22 @@ namespace :lemur do
   desc 'Build environments for codefresh'
   task :build_envs do
     env_paths.each do |env_path|
-      cf_file_path = nil
+      cf_file_paths = []
       envs = []
 
       File.foreach(env_path) do |env_file_line|
         env_file_line.chomp!
-        cf_file_path = cf_file_path_by_line(cf_file_path, env_file_line)
+        cf_file_path_by_line(env_file_line).then { |cf_file_path| cf_file_paths << cf_file_path if cf_file_path }
         env_formatter(env_file_line).then { |env| envs << env if env }
       end
 
-      next unless cf_file_path && !envs.empty?
+      next if cf_file_paths.empty? || envs.empty?
 
-      File.read(cf_file_path)
-          .then { |content| YAML.safe_load(content) }
-          .then { |yml| File.open(cf_file_path, 'w') { |file| file.write(build_new_yml(yml, envs)) } }
+      cf_file_paths.each do |cf_file_path|
+        File.read(cf_file_path)
+            .then { |content| YAML.safe_load(content) }
+            .then { |yml| File.open(cf_file_path, 'w') { |file| file.write(build_new_yml(yml, envs)) } }
+      end
     end
   end
 end
@@ -41,7 +43,7 @@ def codefresh_env(name, value)
 end
 
 def env_paths
-  Dir.children('.').grep(/.env.lemur./)
+  Dir.children('.').grep(/.env.lemur/)
 end
 
 def envs_by_file(env_path, cf_file_path, envs)
@@ -52,11 +54,8 @@ def envs_by_file(env_path, cf_file_path, envs)
   end
 end
 
-def cf_file_path_by_line(cf_file_path, line)
-  return cf_file_path if cf_file_path
-  return unless line.include?(CF_FILE_PATH_HEADER)
-
-  line.split(CF_FILE_PATH_HEADER)[1]
+def cf_file_path_by_line(line)
+  line.split(CF_FILE_PATH_HEADER)[1] if line.include?(CF_FILE_PATH_HEADER)
 end
 
 def env_formatter(line)
