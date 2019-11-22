@@ -39,7 +39,13 @@ end
 def codefresh_env(name, value)
   return unless name && value
 
-  { 'name' => name, 'value' => value }
+  { 'name' => name }.merge(handle_value(value))
+end
+
+def handle_value(value)
+  JSON.parse(value)
+rescue StandardError
+  { 'value' => value }
 end
 
 def env_paths
