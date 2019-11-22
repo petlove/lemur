@@ -43,7 +43,7 @@ def codefresh_env(name, value)
 end
 
 def handle_value(value)
-  JSON.parse(value)
+  JSON.parse(value).then { |result| result.is_a?(Numeric) ? { 'value' => value } : result }
 rescue StandardError
   { 'value' => value }
 end
