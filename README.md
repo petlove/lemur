@@ -36,9 +36,6 @@ Lemur.configure do |config|
   # config.add_keys(STAGING_KEYS, ENV['APP_ENV'] == 'staging')
   # config.add_keys(PRODUCTION_KEYS, ENV['APP_ENV'] == 'production')
 end
-
-Lemur.check! if ENV['RAILS_ENV'] == 'production'
-
 ```
 
 ## Running the checker in a script
