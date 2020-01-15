@@ -45,7 +45,7 @@ def pick_final_envs(obj, envs)
   sobj = obj.map { |e| e.split('=', 2) }
   senvs = envs.map { |e| e.split('=', 2) }
 
-  (sobj.map { |s| s[0] } + senvs.map { |s| s[0] })
+  (sobj.map { |s| s[0] } & senvs.map { |s| s[0] })
     .map { |o| senvs.find { |e| e[0] == o } || sobj.find { |e| e[0] == o } }
     .compact
     .map { |o| o.join('=') }
