@@ -25,12 +25,18 @@ def update_envs(envs)
     envs = pick_final_envs(handle_base_envs(envs, base_file_paths), envs)
     next if envs.empty?
 
-    cf_file_paths.each do |cf_file_path|
-      File.read(cf_file_path)
-          .then { |content| YAML.safe_load(content) }
-          .then { |yml| File.open(cf_file_path, 'w') { |file| file.write(build_new_yml(yml, envs)) } }
-    end
+    cf_file_paths.each { |cf_file_path| process(cf_file_path, envs) }
   end
+end
+
+def process(path, envs)
+  File.read(path)
+      .split('---')
+      .filter { |content| content != '' }
+      .map { |content| YAML.safe_load(content) }
+      .tap { |content| content[0] = build_new_yml(content[0], envs) }
+      .map { |content| content.to_yaml }
+      .then { |content| File.open(path, 'w') { |file| file.write(content.join)} }
 end
 
 def handle_base_envs(_envs, base_file_paths)
@@ -89,7 +95,7 @@ def handle_file(env_path, envs, cf_file_paths, base_file_paths, original_envs = 
 end
 
 def build_new_yml(yml, envs)
-  yml.tap { yml['spec']['template']['spec']['containers'][0]['env'] = codefresh_envs(envs) }.to_yaml
+  yml.tap { yml['spec']['template']['spec']['containers'][0]['env'] = codefresh_envs(envs) }
 end
 
 def codefresh_envs(envs)
