@@ -35,8 +35,21 @@ RSpec.describe Lemur, type: :module do
     let(:keys) { { keys: %w[RAILS_ENV] } }
     let(:clause) { true }
 
-    after { subject }
+    context 'using enviroment LEMUR_SKIP_CHECK' do
+      before { ENV['LEMUR_SKIP_CHECK'] = "true" }
+      after { ENV['LEMUR_SKIP_CHECK'] = nil }
 
-    it { expect(Lemur::Checker).to receive(:check!).once }
+      it do
+        expect(Lemur::Checker).not_to receive(:check!)
+        subject
+      end
+    end
+
+    context 'not using enviroment LEMUR_SKIP_CHECK' do
+      it do
+        expect(Lemur::Checker).to receive(:check!).once
+        subject
+      end
+    end
   end
 end

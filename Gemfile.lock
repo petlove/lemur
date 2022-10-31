@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lemur (1.0.0)
+    lemur (1.1.0)
       dotenv (>= 2.7.5)
 
 GEM

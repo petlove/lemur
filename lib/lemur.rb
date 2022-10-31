@@ -15,6 +15,8 @@ module Lemur
     end
 
     def check!
+      return if skip_check?
+
       Lemur::Checker.check!(configuration.key_sets)
     end
 
@@ -24,6 +26,12 @@ module Lemur
 
     def configuration
       @configuration ||= Configuration.new
+    end
+
+    private
+
+    def skip_check?
+      ENV.fetch('LEMUR_SKIP_CHECK', false)
     end
   end
 end
