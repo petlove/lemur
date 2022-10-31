@@ -13,16 +13,7 @@ RSpec.describe Lemur::Checker, type: :model do
     end
 
     context 'without UNKNOWN_ENV' do
-
       it { expect { subject }.to raise_error(Lemur::MissingKeys) }
-      
-      context 'using enviroment LEMUR_SKIP_CHECK' do
-        before { ENV['UNKNOWN_ENV'] = 'development' }
-        before { ENV['LEMUR_SKIP_CHECK'] = 'true' }
-        after { ENV['LEMUR_SKIP_CHECK'] = nil }
-
-        it { expect { subject }.not_to raise_error }
-      end
     end
 
     context 'with UNKNOWN_ENV' do

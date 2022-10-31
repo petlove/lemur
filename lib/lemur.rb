@@ -31,7 +31,7 @@ module Lemur
     private
 
     def skip_check?
-      @skip_check ||= ENV.fetch('LEMUR_SKIP_CHECK', false)
+      ENV.fetch('LEMUR_SKIP_CHECK', false)
     end
   end
 end
